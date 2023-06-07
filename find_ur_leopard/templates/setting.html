@@ -1,0 +1,131 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'assets/images/favicon.png' %}" rel="icon" type="image/png">
+    <title>Settings</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+
+</head>
+
+<body>
+        <header>
+                <div class="header_inner">
+                    <div class="left-side">
+                        <b>Welcome {{user_profile.user.username}}!</b>
+                    </div>
+                    <div class="right-side lg:pr-4">
+                        <a href="/">
+                            Community Feed
+                        </a>
+                        <div style="width:50px"></div>
+                        <a href="/roommate_feed">
+                            Roommate Feed
+                        </a>
+                        <div style="width:50px"></div>
+                        <a href="#">
+                            <img src="{{user_profile.profileimg.url}}" class="header-avatar" alt="">
+                        </a>
+                        <div uk-drop="mode: click;offset:9" class="header_dropdown profile_dropdown border-t">
+                            <ul>
+                                <li><a href="/settings"> Account settings</a> </li>
+                                <li><a href="logout"> Log Out</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+
+            <div class="container m-auto"> 
+
+                <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3"><a >General / Account Settings For {{user.username}}</b></a> </h1>
+                </ul>
+                <br>
+                <hr>
+
+                <div class="grid lg:grid-cols-2 mt-12 gap-8">
+                    <div>
+<!--                        <h3 class="text-xl mb-2">General</h3>-->
+                        <p></p>
+                    </div>
+                    <div class="bg-white rounded-md lg:shadow-lg shadow col-span-2">
+
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                       <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
+
+                           <div class="col-span-2">
+                                <label for="about">Profile Picture</label>
+                                <img width="150" height="150" src="{{user_profile.profileimg.url}}"/>
+                                <input type="file" name="image" value=""  class="shadow-none bg-gray-100" placeholder="">
+                            </div>
+                            <div class="col-span-2">
+                                <label for="bio">Personal Bio</label>
+                                <textarea id="bio" name="bio" rows="3"  class="shadow-none bg-gray-100">{{user_profile.bio}}</textarea>
+                            </div>
+                           <div class="col-span-2">
+                                <label for="about">Gender</label>
+                                <textarea id="gender" name="gender" rows="3" class="shadow-none bg-gray-100">{{user_profile.gender}}</textarea>
+                            </div>
+                           <div class="col-span-2">
+                                <label for="about">Location(Off/On Campus)</label>
+                                <textarea id="location" name="location" rows="3" class="shadow-none bg-gray-100">{{user_profile.location}}</textarea>
+                            </div>
+                           <div class="col-span-2">
+                                <label for="about">Sleeping Habits</label>
+                                <textarea id="sleeping_habits" name="sleeping_habits" rows="3" class="shadow-none bg-gray-100">{{user_profile.sleeping_habits}}</textarea>
+                            </div>
+                           <div class="col-span-2">
+                                <label for="about">Number of Roommates</label>
+                                <textarea id="number_of_roommates" name="number_of_roommates" rows="3" class="shadow-none bg-gray-100">{{user_profile.number_of_roommates}}</textarea>
+                            </div>
+                           <div class="col-span-2">
+                                <label for="about">Interests</label>
+                                <textarea id="interests" name="interests" rows="3" class="shadow-none bg-gray-100">{{user_profile.interests}}</textarea>
+                            </div>
+                           <div class="col-span-2">
+                                <label for="about">Age</label>
+                                <textarea id="age" name="age" rows="3" class="shadow-none bg-gray-100">{{user_profile.age}}</textarea>
+                            </div>
+                           <div class="col-span-2">
+                                <label for="about">Personality Type</label>
+                                <textarea id="personality_types" name="personality_types" rows="3" class="shadow-none bg-gray-100">{{user_profile.personality_types}}</textarea>
+                            </div>
+                       </div>
+                       <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
+                           <button class="p-2 px-4 rounded bg-gray-50 text-red-500"><a href="/"> Cancel</a></button>
+                           <button type="submit" class="button bg-blue-700"> Save </button>
+                       </div>
+                        </form>
+                    </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+ <!-- Scripts
+    ================================================== -->
+    <script src="{% static 'assets/js/tippy.all.min.js' %}"></script>  
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/uikit.js' %}"></script>
+    <script src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+    <script src="{% static '../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script>
+</body>
+
+</html>
