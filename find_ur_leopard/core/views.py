@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 import string
 from pix2tex.cli import LatexOCR
 
+
 from .models import UploadedImage
 
 from PIL import Image
@@ -20,20 +21,22 @@ def upload_image(request):
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
 
+    ocr_option = request.POST.get('ocr_option', 'text')
+
     if request.method == 'POST':
         uploaded_image = request.FILES['image']
         image_object = UploadedImage.objects.create(image=uploaded_image)
 
-        if user_profile.ocr_option == 'text':
+        if ocr_option == 'text':
             ocr_text = pytesseract.image_to_string(Image.open(uploaded_image))
-        else:
-            ocr_text = latex_model(Image.open(uploaded_image))  # Use your LaTeX OCR function
+            print(f'TEXT: {ocr_text}')
+        elif ocr_option == 'math':
+            ocr_text = latex_model(Image.open(uploaded_image))
 
         return render(request, 'result.html',
                       {'image': image_object.image, 'ocr_text': ocr_text, 'user_profile': user_profile})
 
     return render(request, 'upload.html', {'user_profile': user_profile})
-
 
 
 # def upload_image(request):
