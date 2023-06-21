@@ -37,20 +37,33 @@
             </header>
             <div class="container m-auto">
 
+                <form method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div>
+                    <label><input type="radio" name="ocr_option" value="text" checked> Text</label>
+                    <label><input type="radio" name="ocr_option" value="math"> Math</label>
+                  </div>
+                  <br>
+                  <div>
+                    <input type="file" name="image" accept="image/*" required>
+                  </div>
+                  <br>
+                  <button class="button bg-blue-700" type="upload">Upload Image</button>
+                </form>
 
-                <html>
-                <head>
-                    <title>Upload Image</title>
-                </head>
-                <body>
-                    <h1>Upload Image</h1>
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="file" name="image">
-                        <input type="submit" value="Upload">
-                    </form>
-                </body>
-                </html>
+<!--                <html>-->
+<!--                <head>-->
+<!--                    <title>Upload Image</title>-->
+<!--                </head>-->
+<!--                <body>-->
+<!--                    <h1>Upload Image</h1>-->
+<!--                    <form method="POST" enctype="multipart/form-data">-->
+<!--                        {% csrf_token %}-->
+<!--                        <input type="file" name="image">-->
+<!--                        <input type="submit" value="Upload">-->
+<!--                    </form>-->
+<!--                </body>-->
+<!--                </html>-->
 
 
 

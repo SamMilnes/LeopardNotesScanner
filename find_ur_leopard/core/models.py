@@ -27,6 +27,8 @@ class Profile(models.Model):
     number_of_roommates = models.TextField(blank=True)
     personality_types = models.TextField(blank=True)
     interests = models.TextField(blank=True)
+    ocr_option = models.CharField(max_length=10, choices=[('text', 'Text'), ('math', 'Math')], default='text')
+
 
     def __str__(self):
         return self.user.username

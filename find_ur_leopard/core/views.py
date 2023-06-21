@@ -4,6 +4,7 @@ from django.contrib import messages
 from .models import Profile
 from django.contrib.auth.decorators import login_required
 import string
+from pix2tex.cli import LatexOCR
 
 from .models import UploadedImage
 
@@ -11,6 +12,8 @@ from PIL import Image
 import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = 'C://Program Files//Tesseract-OCR//tesseract.exe'
+
+latex_model = LatexOCR()
 
 
 def upload_image(request):
@@ -20,12 +23,32 @@ def upload_image(request):
     if request.method == 'POST':
         uploaded_image = request.FILES['image']
         image_object = UploadedImage.objects.create(image=uploaded_image)
-        ocr_text = pytesseract.image_to_string(Image.open(uploaded_image))
+
+        if user_profile.ocr_option == 'text':
+            ocr_text = pytesseract.image_to_string(Image.open(uploaded_image))
+        else:
+            ocr_text = latex_model(Image.open(uploaded_image))  # Use your LaTeX OCR function
 
         return render(request, 'result.html',
                       {'image': image_object.image, 'ocr_text': ocr_text, 'user_profile': user_profile})
 
     return render(request, 'upload.html', {'user_profile': user_profile})
+
+
+
+# def upload_image(request):
+#     user_object = User.objects.get(username=request.user.username)
+#     user_profile = Profile.objects.get(user=user_object)
+#
+#     if request.method == 'POST':
+#         uploaded_image = request.FILES['image']
+#         image_object = UploadedImage.objects.create(image=uploaded_image)
+#         ocr_text = pytesseract.image_to_string(Image.open(uploaded_image))
+#
+#         return render(request, 'result.html',
+#                       {'image': image_object.image, 'ocr_text': ocr_text, 'user_profile': user_profile})
+#
+#     return render(request, 'upload.html', {'user_profile': user_profile})
 
 
 '''
