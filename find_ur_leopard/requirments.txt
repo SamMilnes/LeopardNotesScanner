@@ -3,3 +3,6 @@ Django==4.1.4
 Pillow==9.3.0
 sqlparse==0.4.3
 tzdata==2022.7
+pix2tex==0.1.2
+pytesseract==0.3.10
+opencv==4.8.0
